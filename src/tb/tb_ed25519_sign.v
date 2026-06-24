@@ -65,10 +65,6 @@ module tb_ed25519_sign;
     localparam CORE_NAME1       = 32'h35313920; // "519 "
     localparam CORE_VERSION     = 32'h31333337; // "1337"
 
-    always begin
-        #1 clk = ~clk;
-    end
-
 	// Inputs
 	reg clk;
 	reg rst;
@@ -76,6 +72,10 @@ module tb_ed25519_sign;
 	reg core_we;
 	reg [7:0] core_address;
 	reg [31:0] core_write_data;
+
+    always begin
+        #1 clk = ~clk;
+    end
 
 	// Outputs
 	wire [31:0] core_read_data;
@@ -258,7 +258,7 @@ module tb_ed25519_sign;
                 $display("%d passed", i);
             end
         end
-        $stop;
+        $finish;
     end
 
 endmodule

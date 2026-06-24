@@ -1,6 +1,6 @@
-`include "./addsub/sub_254.v"
-`include "./addsub/add_516.v"
-`include "./memories/bram_253.v"
+`include "./sub_254.v"
+`include "./add_516.v"
+`include "./bram_253.v"
 
 /* Reduce a 512 bit number mod 2**252
 *                               + 27742317777372353535851937790883648493 */
@@ -74,7 +74,7 @@ reg [253:0] sub_in_1;
 wire [515:0] layer_1_wire_00;
 wire [515:0] layer_1_wire_01;
 wire [515:0] layer_2_wire_00;
-wire [252:0] sub_out;
+wire [253:0] sub_out;
 
 wire en_wr_bram_1;
 wire en_wr_bram_2;

@@ -1,5 +1,5 @@
 /* Adds all the inputs in a binary tree. */
-`include "./adder/add_512.v"
+`include "./add_512.v"
 
 module addition_layer_512 (
     input wire clk,

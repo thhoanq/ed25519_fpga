@@ -1,7 +1,7 @@
-`include "./addsub/sub.v"
-`include "./addsub/add.v"
-`include "./memories/dram.v"
-`include "./memories/precomp_rom.v"
+`include "./sub.v"
+`include "./add.v"
+`include "./dram.v"
+`include "./precomp_rom.v"
 
 /* Multiply a point by a scalar. In practice the scalar is 253 bits but upto 256
 * is possible.*/
@@ -152,19 +152,19 @@ dram dram_proc_4 (
     .data_out(data_out_dram_proc_4)
     );
 
-precomp_rom #("./src/rtl/scalar_mult/memories/x_precomp.dat") x_mem (
+precomp_rom #("src/rtl/scalar_mult/x_precomp.dat") x_mem (
     .clk(clk),
     .addr(addr),
     .data_out(x_data_out)
 );
 
-precomp_rom #("./src/rtl/scalar_mult/memories/y_precomp.dat") y_mem (
+precomp_rom #("src/rtl/scalar_mult/y_precomp.dat") y_mem (
     .clk(clk),
     .addr(addr),
     .data_out(y_data_out)
 );
 
-precomp_rom #("./src/rtl/scalar_mult/memories/t_precomp.dat") t_mem (
+precomp_rom #("src/rtl/scalar_mult/t_precomp.dat") t_mem (
     .clk(clk),
     .addr(addr),
     .data_out(t_data_out)

@@ -1,4 +1,4 @@
-`include "./memories/bram_255.v"
+`include "./bram_255.v"
 
 module invert (
     input wire clk,

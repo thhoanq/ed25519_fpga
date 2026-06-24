@@ -1,9 +1,5 @@
 module tb_core;
 
-    always begin
-        #1 clk = ~clk;
-    end
-
     integer i = 0;
 
 	// Inputs
@@ -19,6 +15,10 @@ module tb_core;
 	wire core_comp_done;
     wire [255:0] core_R;
     wire [255:0] core_S;
+
+    always begin
+        #1 clk = ~clk;
+    end
 
 	// Instantiate the Unit Under Test (UUT)
 	sign_core uut (

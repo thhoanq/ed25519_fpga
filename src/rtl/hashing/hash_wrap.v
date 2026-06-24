@@ -1,7 +1,7 @@
-`include "./sha512/sha512_core.v"
-`include "./sha512/sha512_w_mem.v"
-`include "./sha512/sha512_k_constants.v"
-`include "./sha512/sha512_h_constants.v"
+`include "./sha512_core.v"
+`include "./sha512_w_mem.v"
+`include "./sha512_k_constants.v"
+`include "./sha512_h_constants.v"
 
 /* This module computes H(k), H(hM) or H(R,A,M), only 256 bit M are supported */
 
