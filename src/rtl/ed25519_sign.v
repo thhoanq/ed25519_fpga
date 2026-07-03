@@ -1,4 +1,3 @@
-
 module ed25519_sign (
     input wire clk,
     input wire rst,
@@ -473,4 +472,3 @@ always @* begin
 end
 
 endmodule
-
