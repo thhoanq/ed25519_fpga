@@ -2550,19 +2550,19 @@ reg_256 dram_proc_4 (
     .data_out(data_out_dram_proc_4)
     );
 
-precomp_rom #("x_precomp.dat") x_mem (
+precomp_rom #("src/rtl/x_precomp.dat") x_mem (
     .clk(clk),
     .addr(addr),
     .data_out(x_data_out)
 );
 
-precomp_rom #("y_precomp.dat") y_mem (
+precomp_rom #("src/rtl/y_precomp.dat") y_mem (
     .clk(clk),
     .addr(addr),
     .data_out(y_data_out)
 );
 
-precomp_rom #("t_precomp.dat") t_mem (
+precomp_rom #("src/rtl/t_precomp.dat") t_mem (
     .clk(clk),
     .addr(addr),
     .data_out(t_data_out)

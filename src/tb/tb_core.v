@@ -34,11 +34,11 @@ module tb_core;
         .core_S(core_S)
 	);
 
-    reg [255:0] sk_mem [0:100];
-    reg [255:0] pk_mem [0:100];
-    reg [255:0] m_mem [0:100];
-    reg [255:0] r_mem [0:100];
-    reg [255:0] s_mem [0:100];
+    reg [255:0] sk_mem [0:99];
+    reg [255:0] pk_mem [0:99];
+    reg [255:0] m_mem [0:99];
+    reg [255:0] r_mem [0:99];
+    reg [255:0] s_mem [0:99];
 
 	initial begin
 		// Initialize Inputs
@@ -90,6 +90,10 @@ module tb_core;
             else begin
                 $display("%d passed", i);
                 i = i + 1;
+                if (i == 100) begin
+                    $display("All 100 vectors passed");
+                    $finish;
+                end
             end
         end
     end

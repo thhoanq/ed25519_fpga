@@ -10440,3 +10440,42 @@ always @(posedge clk)
 
         end
 endmodule
+
+module MULT_MACRO #(
+    parameter DEVICE  = "7SERIES",  // kept for port compatibility, unused
+    parameter LATENCY = 3,          // only 3 is supported (all instances use 3)
+    parameter WIDTH_A = 25,
+    parameter WIDTH_B = 18
+) (
+    output wire [WIDTH_A+WIDTH_B-1 : 0] P,
+    input  wire [WIDTH_A-1 : 0] A,
+    input  wire [WIDTH_B-1 : 0] B,
+    input  wire CE,
+    input  wire CLK,
+    input  wire RST
+);
+
+    reg signed [WIDTH_A-1 : 0] a_reg;
+    reg signed [WIDTH_B-1 : 0] b_reg;
+    reg signed [WIDTH_A+WIDTH_B-1 : 0] m_reg;
+    reg signed [WIDTH_A+WIDTH_B-1 : 0] p_reg;
+
+    always @(posedge CLK)
+        if (RST)
+            begin
+                a_reg <= {WIDTH_A{1'b0}};
+                b_reg <= {WIDTH_B{1'b0}};
+                m_reg <= {(WIDTH_A+WIDTH_B){1'b0}};
+                p_reg <= {(WIDTH_A+WIDTH_B){1'b0}};
+            end
+        else if (CE)
+            begin
+                a_reg <= A;
+                b_reg <= B;
+                m_reg <= a_reg * b_reg;
+                p_reg <= m_reg;
+            end
+
+    assign P = p_reg;
+
+endmodule

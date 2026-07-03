@@ -181,8 +181,8 @@ module tb_ed25519_sign;
 		#100;
         rst = 0;
 
-        // Verify all the test vectors
-        for (i=0; i<100;i=i+1) begin
+        // Verify the test vectors (memories only hold 10 entries)
+        for (i=0; i<10; i=i+1) begin
 
             ready = 0;
             while (ready == 0) begin
@@ -258,6 +258,7 @@ module tb_ed25519_sign;
                 $display("%d passed", i);
             end
         end
+        $display("All 10 vectors passed");
         $finish;
     end
 
