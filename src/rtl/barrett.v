@@ -1,7 +1,3 @@
-`include "./sub_254.v"
-`include "./add_516.v"
-`include "./bram_253.v"
-
 /* Reduce a 512 bit number mod 2**252
 *                               + 27742317777372353535851937790883648493 */
 
@@ -371,4 +367,71 @@ always @* begin
     end
 end
 
+endmodule
+
+
+module add_516 (
+    input wire clk,
+    input wire rst,
+
+    input wire [515 : 0] add_in0,
+    input wire [515 : 0] add_in1,
+
+    output reg [515 : 0] add_out
+    );
+
+    always @(posedge clk)
+        if (rst)
+            begin
+                add_out <= 516'b0;
+			end
+		else
+            begin
+                add_out <= add_in0 + add_in1;
+			end
+endmodule
+
+
+module sub_254 (
+    input wire clk,
+    input wire rst,
+
+    input wire [253 : 0] sub_in0,
+    input wire [253 : 0] sub_in1,
+
+    output reg [253 : 0] sub_out
+    );
+
+    always @(posedge clk)
+        if (rst)
+            begin
+                sub_out <= 254'b0;
+			end
+		else
+            begin
+                sub_out <= sub_in0 - sub_in1;
+			end
+endmodule
+
+
+/* Write first style BRAM */
+module bram_253 (
+        input wire clk,
+        input wire we,
+        input wire addr,
+
+        input wire [252:0] data_in,
+        output reg [252:0] data_out
+);
+
+reg [252:0] RAM [1:0];
+
+always @(posedge clk) begin
+    if (we) begin
+        RAM[addr] <= data_in;
+        data_out <= data_in;
+    end
+    else
+        data_out <= RAM[addr];
+end
 endmodule

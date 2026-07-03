@@ -1,8 +1,3 @@
-`include "./sub.v"
-`include "./add.v"
-`include "./dram.v"
-`include "./precomp_rom.v"
-
 /* Multiply a point by a scalar. In practice the scalar is 253 bits but upto 256
 * is possible.*/
 
@@ -152,19 +147,19 @@ dram dram_proc_4 (
     .data_out(data_out_dram_proc_4)
     );
 
-precomp_rom #("src/rtl/scalar_mult/x_precomp.dat") x_mem (
+precomp_rom #("src/rtl/x_precomp.dat") x_mem (
     .clk(clk),
     .addr(addr),
     .data_out(x_data_out)
 );
 
-precomp_rom #("src/rtl/scalar_mult/y_precomp.dat") y_mem (
+precomp_rom #("src/rtl/y_precomp.dat") y_mem (
     .clk(clk),
     .addr(addr),
     .data_out(y_data_out)
 );
 
-precomp_rom #("src/rtl/scalar_mult/t_precomp.dat") t_mem (
+precomp_rom #("src/rtl/t_precomp.dat") t_mem (
     .clk(clk),
     .addr(addr),
     .data_out(t_data_out)
@@ -550,6 +545,99 @@ always @* begin
         sm_y_out = data_out_dram_proc_2[254:0];
         sm_z_out = sm_mult_out;
     end
+end
+
+endmodule
+
+
+/* Simple subtraction */
+module sub (
+    input wire clk,
+    input wire rst,
+
+    input wire [254 : 0] sub_in_0,
+    input wire [254 : 0] sub_in_1,
+
+    output reg [255 : 0] sub_out
+    );
+
+    always @(posedge clk)
+        if (rst)
+            begin
+                sub_out <= 256'b0;
+			end
+		else
+            begin
+                // Add the modulus to the first operand to prevent negative values
+                sub_out <= 255'h7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffed + sub_in_0 - sub_in_1;
+			end
+endmodule
+
+
+/* Simple addition */
+module add (
+    input wire clk,
+    input wire rst,
+
+    input wire [254 : 0] add_in_0,
+    input wire [254 : 0] add_in_1,
+
+    output reg [255 : 0] add_out
+    );
+
+    always @(posedge clk)
+        if (rst)
+            begin
+                add_out <= 256'b0;
+			end
+		else
+            begin
+                add_out <= add_in_0 + add_in_1;
+			end
+endmodule
+
+
+/* Some small DRAM to save intermediate values during scalar multiplication */
+module dram (
+   input wire clk,
+
+   input wire en_wr,
+   input wire [255:0] data_in,
+   output wire [255:0] data_out
+);
+
+reg [255:0] RAM;
+
+always @(posedge clk) begin
+    if (en_wr)
+        RAM <= data_in;
+end
+
+assign data_out = RAM;
+
+endmodule
+
+
+module precomp_rom (
+        input clk,
+        input [12:0] addr,  // 5 bit for round 8 bit for value
+        output reg [254:0] data_out
+);
+
+reg [254:0] ram[8191:0];
+
+// Initialize RAM from file
+parameter MEM_INIT_FILE = "";
+
+initial begin
+  if (MEM_INIT_FILE != "") begin
+    $readmemh(MEM_INIT_FILE, ram);
+  end
+end
+
+always @(posedge clk) begin
+    // Place data from RAM
+    data_out <= ram[addr];
 end
 
 endmodule

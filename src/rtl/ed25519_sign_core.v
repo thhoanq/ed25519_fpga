@@ -1,10 +1,10 @@
-// `include "./memories/bram_256.v"
-// `include "./memories/bram_512.v"
-// `include "./multiplier/mult_units_512.v"
-// `include "./scalar_mult/scalar_mult.v"
-// `include "./modular_inversion/invert.v"
-// `include "./modular_reduce/barrett.v"
-// `include "./hashing/hash_wrap.v"
+// `include "./bram_256.v"
+// `include "./bram_512.v"
+// `include "./mult_units_512.v"
+// `include "./scalar_mult.v"
+// `include "./invert.v"
+// `include "./barrett.v"
+// `include "./sha512_wrap.v"
 
 module sign_core (
     input wire clk,
@@ -187,7 +187,7 @@ mult_units_512 mult (
     .mult_1_out(mult_1_out)
     );
 
-hash_wrap hw (
+sha512_wrap hw (
     .clk(clk),
     .rst(rst),
     .hw_ena(hw_ena),
