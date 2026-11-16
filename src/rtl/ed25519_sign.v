@@ -1,3 +1,6 @@
+`timescale 1ns / 1ps
+`include "./ed25519_sign_core.v"
+
 module ed25519_sign (
     input wire clk,
     input wire rst,
@@ -472,3 +475,4 @@ always @* begin
 end
 
 endmodule
+
