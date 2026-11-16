@@ -1,0 +1,14 @@
+# Vivado xsim artifacts
+xsim.dir/
+.Xil/
+*.pb
+*.jou
+*.wdb
+*.log
+webtalk*
+
+# Test vector sinh bởi src/model/gensigs.py
+src/model/*.dat
+
+# Python bytecode
+src/model/*.pyc
