@@ -1,5 +1,5 @@
 # FPGA version
 
-> Modified by: thhoang
+> Modified by: thhoang \
 > Last modified: 17/11/2026
 
